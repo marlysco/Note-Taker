@@ -13,7 +13,7 @@ app.use(express.static('public'));
 app.use(express.json()); 
 
 //Set the initial port
-const PORT = process.env.PORT || 8045;
+const PORT = process.env.PORT || 8046;
 
 //Listener
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
@@ -54,15 +54,14 @@ res.json(notes[req.params.id]);
 
 
 //POST request
-app.post('/api/notes',(req, res) => {
-        const newNote = req.body;
-        const id = generateUniqueId();
-        console.log(id);
-        newNote+=id;
-        notes.push(newNote);
-        writeDb();
-        res.json(newNote);
-    });
+app.post('/api/notes', (req, res) => {
+    var newNote=[];
+    const id = generateUniqueId();
+    newNote.push(id);
+    newNote.push(req.body);
+    res.json(newNote);
+    writeDB();
+  })
 
 //DELETE
 // Delete a note with an specific id
@@ -74,7 +73,7 @@ app.post('/api/notes',(req, res) => {
     
 // UpdateDB function
     const writeDB =() => {
-        fs.writeFile('db/db.json',JSON.stringify(notes,'\t'), err => {
+        fs.writeFile('db/db.json',JSON.stringify(newNote,'\t'), err => {
             if (err) throw err;
             return true; 
         })
