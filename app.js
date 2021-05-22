@@ -47,19 +47,21 @@ app.get('/', function(req,res) {
 app.get('/api/notes', (req, res) => {
         return res.json(notes);
         });
+
 //Show a selected note with an specific id   
 app.get('/api/notes/:id', (req, res)=>{
 res.json(notes[req.params.id]);
 });
 
+var note=[];
 
 //POST request
 app.post('/api/notes', (req, res) => {
-    var newNote=[];
     const id = generateUniqueId();
-    newNote.push(id);
-    newNote.push(req.body);
-    res.json(newNote);
+    notes.push(req.body);
+    //note.push(id);
+    console.log(notes);
+    res.json(notes);
     writeDB();
   })
 
@@ -73,7 +75,7 @@ app.post('/api/notes', (req, res) => {
     
 // UpdateDB function
     const writeDB =() => {
-        fs.writeFile('db/db.json',JSON.stringify(newNote,'\t'), err => {
+        fs.writeFile('db/db.json',JSON.stringify(notes,'\t'), err => {
             if (err) throw err;
             return true; 
         })
