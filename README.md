@@ -12,7 +12,7 @@
 - [Questions](#Questions)
 
  ## Installation
- This application can be runned by cloning this repository and running the following command in the command prompt: node app.js | The app will be displayed at the http://localhost:8046 of your default browser. Also the Note Take app is live on Heruku: 
+ This application can be runned by cloning this repository and running the following command in the command prompt: node app.js | The app will be displayed at the http://localhost:8046 of your default browser. Also the Note Take app is live on Heruku.
 
  ## Usage
  Simply add the title of your note and the content. When the save icon is clicked, the note will be saved and shown at the left side bar. You can add more notes, delete a select and modify all your notes.
