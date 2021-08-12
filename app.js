@@ -92,19 +92,26 @@ app.post('/api/notes', (req, res) => {
 //DELETE
 // Delete a note with an specific id
     app.delete('/api/notes/:id', (req, res)=>{
-        notes.splice(req.params.id,1);
-        writeDB();
+        const selectedId = req.params.id
+        console.log(selectedId)
+        fs.readFile(`${__dirname}/db/db.json`, 'utf8', (err, data) => {
+         const allNotes = JSON.parse(data)
+         console.log("Below all notes")
+         console.log(allNotes)
+         const notesLeft = allNotes.filter(note => note.id != selectedId);
+         console.log("Notes left below")
+         console.log(notesLeft);
+         fs.writeFile(`${__dirname}/db/db.json`, JSON.stringify(notesLeft), (err, data) => {
+            if (err) throw err;
+            else {
+            console.log("Note Deleted!")
+            };
+           });
+        });
+        res.redirect("/api/notes")
     });
     
-    
-// UpdateDB function
-    const writeDB =() => {
-        fs.writeFile('db/db.json',JSON.stringify(notes,'\t'), err => {
-            if (err) throw err;
-            return true; 
-        });
-    };
-    
+
     
 
     
